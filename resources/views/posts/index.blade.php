@@ -38,7 +38,9 @@
 			@foreach($posts as $post)
 
 			<tr>
-				<td>{{$post->image}}</td>
+				<td>
+					<img src="{{asset($post->image)}}" alt="" width="120" height="60"class="image">
+				</td>
 
 				<td>
 					{{$post->title}}
@@ -49,7 +51,7 @@
 				</td>
 
 				<td>
-					 <button type="submit" class="btn btn-danger">DELETE</button>
+					 <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
 				</td>
 
 

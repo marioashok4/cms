@@ -83,6 +83,10 @@
 
 	@else
 
+	<h3 class="text-center">
+		No Categories Yet
+	</h3>
+
 	@endif	
 		
 	</div>

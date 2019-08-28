@@ -39,9 +39,23 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        //
+        $image = $request->image->store('posts');
+
+
+        //Create the post
+        Post::create([
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'content'=>$request->content,
+            'image'=>$image,
+            'published_at'=>$request->published_at,
+        ]);
+
+        session()->flash('success','Post Created Successfully');
+
+        return redirect(route('posts.index'));
     }
 
     /**

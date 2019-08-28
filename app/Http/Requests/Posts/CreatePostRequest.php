@@ -24,7 +24,11 @@ class CreatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title'=>'required|unique:posts|min:3',
+            'description'=>'required|min:4',
+            'content'=>'required|min:3',
+            'image'=>'required|image',
+            
         ];
     }
 }
