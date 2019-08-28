@@ -77,9 +77,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+         return view('posts.create',compact('post'));
     }
 
     /**
@@ -89,9 +89,29 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(UpdatePostRequest $request, Post $post)
+    {   
+        $data = $request->only(['title','content','description','published_at']);
+        if($request->hasFile('image'))
+        {   
+            //Upload the image
+            $image = $request->image->store('posts');
+
+            $post->deleteImage();
+
+            //If the image was there
+            $data['image']=$image;
+        }
+
+        //Update the attributes
+        $post->update($data);
+
+        //Flash message.
+         session()->flash('success','Post Updated Successfully');
+
+        return redirect(route('posts.index'));
+
+
     }
 
     /**
@@ -107,7 +127,7 @@ class PostsController extends Controller
 
         if($post->trashed())
         {       
-            Storage::delete($post->image);
+             $post->deleteImage();
              $post->forceDelete();
         }else{
 
@@ -124,5 +144,18 @@ class PostsController extends Controller
         $trashed = Post::onlyTrashed()->get();
 
         return view('posts.index')->withPosts($trashed);
+    }
+
+    public function restore($id)
+    {
+        $post = Post::withTrashed()->where('id',$id)->firstOrFail();
+
+        $post->restore();
+
+        session()->flash('success','Post Restored Successfully');
+
+        return redirect(route('posts.index'));
+
+
     }
 }

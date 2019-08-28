@@ -46,11 +46,36 @@
 					{{$post->title}}
 				</td>
 
-				@if(!$post->trashed())
+				@if($post->trashed())
 
 				<td>
-					<a href="{{route('categories.edit',$post->id)}}" class="btn btn-primary btn-sm">EDIT</a>
+					<form action="{{route('restore-posts',$post->id)}}" method="POST">
+						
+						@csrf
+
+						@method('PUT')
+
+						<button class="btn btn-warning btn-sm">
+
+							RESTORE
+							
+						</button>
+
+
+
+
+
+					</form>
+					
 				</td>
+
+				@else
+
+				<td>
+					<a href="{{route('posts.edit',$post->id)}}" class="btn btn-primary btn-sm">EDIT</a>
+				</td>
+
+
 
 
 				@endif
