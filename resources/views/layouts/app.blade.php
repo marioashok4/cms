@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    
 </head>
 <body>
     <div id="app">
@@ -94,7 +96,16 @@
                          <li class="list-group-item">
                              <a href="{{route('posts.index')}}">Posts</a>
                          </li>
-                     </ul>   
+                     </ul> 
+
+
+                      <ul class="list-group mt-3">
+                         <li class="list-group-item">
+                             <a href="{{route('trashed-posts')}}">Trashed Posts</a>
+                         </li>
+
+                          
+                     </ul>  
                             
                     </div> 
         

@@ -46,15 +46,23 @@
 					{{$post->title}}
 				</td>
 
+				@if(!$post->trashed())
+
 				<td>
 					<a href="{{route('categories.edit',$post->id)}}" class="btn btn-primary btn-sm">EDIT</a>
 				</td>
+
+
+				@endif
 
 				<td>
 					<form action="{{route('posts.destroy',$post->id)}}" method="POST">
 						@csrf
 						@method('DELETE')
-						 <button type="submit" class="btn btn-danger btn-sm" name="delete">TRASH</button>
+						 <button type="submit" class="btn btn-danger btn-sm" name="delete">
+						 	 
+						 {{$post->trashed()?'DELETE':'TRASH'}}	 
+						 </button>
 					</form>
 					 	
 
