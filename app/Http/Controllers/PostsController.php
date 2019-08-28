@@ -100,6 +100,12 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Post::findOrFail($id);
+
+        $category->delete();
+
+        session()->flash('success','Post Trashed Successfully');
+
+        return redirect(route('posts.index'));
     }
 }
