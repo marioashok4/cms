@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Post;
+
+use App\Http\Requests\Posts\CreatePostRequest;
+
+use App\Http\Requests\Posts\UpdatePostRequest;
+
 class PostsController extends Controller
 {
     /**
@@ -12,8 +18,9 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        $posts= Post::all();
+        return view('posts.index',compact('posts'));
     }
 
     /**
@@ -23,7 +30,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
