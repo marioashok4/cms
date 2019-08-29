@@ -8,6 +8,8 @@ use App\Post;
 
 use App\Category;
 
+use App\Tag;
+
 use App\Http\Requests\Posts\CreatePostRequest;
 
 use App\Http\Requests\Posts\UpdatePostRequest;
@@ -40,7 +42,8 @@ class PostsController extends Controller
     public function create()
     {   
         $categories = Category::all();
-        return view('posts.create',compact('categories'));
+        $tags=Tag::all();
+        return view('posts.create',compact('categories','tags'));
     }
 
     /**
@@ -51,11 +54,12 @@ class PostsController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
+
         $image = $request->image->store('posts');
 
 
         //Create the post
-        Post::create([
+        $post=Post::create([
             'title'=>$request->title,
             'description'=>$request->description,
             'content'=>$request->content,
@@ -63,6 +67,11 @@ class PostsController extends Controller
             'published_at'=>$request->published_at,
             'category_id'=>$request->category,
         ]);
+
+        if($request->tags)
+        {
+            $post->tags()->attach($request->tags);
+        }
 
         session()->flash('success','Post Created Successfully');
 
@@ -88,8 +97,10 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {       
+
         $categories = Category::all();
-         return view('posts.create',compact('post','categories'));
+        $tags=Tag::all();
+         return view('posts.create',compact('post','categories','tags'));
     }
 
     /**
@@ -111,6 +122,11 @@ class PostsController extends Controller
 
             //If the image was there
             $data['image']=$image;
+        }
+
+        if($request->tags)
+        {
+            $post->tags()->sync($request->tags);
         }
 
         //Update the attributes

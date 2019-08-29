@@ -81,6 +81,49 @@
 	    	</select>
 	    </div>
 
+		@if($tags->count()>0)
+	    <div class="form-group">
+	    	
+	    	<label for="tags">Tags</label>
+	    	
+			
+			<select name="tags[]" id="tags" class="form-control" multiple>
+
+	    	@foreach($tags as $tag)
+
+	    	<option value="{{$tag->id}}"
+				
+			@if(isset($post))
+
+			@if($post->hasTag($tag->id))
+			selected
+
+			@endif
+			
+
+			@endif	
+
+
+	    		>
+	    		{{$tag->name}}
+	    	</option>
+	    	
+
+	    	@endforeach	
+			
+
+
+	    		
+			
+
+	    	</select>
+
+
+	    	
+
+	    </div>
+	    @endif
+
 	     <div class="form-group">
 	    	<label for="published_at">Published at</label>
 	    		<input type="text" name="published_at" class="form-control" id="published_at" value="{{isset($post)?$post->published_at:old('published_at')}}">

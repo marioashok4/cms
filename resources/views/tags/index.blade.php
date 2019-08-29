@@ -21,6 +21,10 @@
 				<th>
 					Name
 				</th>
+
+				<th>
+					Total Posts
+				</th>
 				 
 				<th>
 					Action
@@ -36,6 +40,10 @@
 
 			<tr>
 				<td>{{$tag->name}}</td>
+
+				<td>
+					{{$tag->posts->count()}}
+				</td>
 
 				 
 				<td>
