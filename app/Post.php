@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {	
 	use softDeletes;
-    protected $fillable=['title','content','description','image','published_at'];
+    protected $fillable=['title','content','description','image','published_at','category_id'];
 
     //Deletes post image from storage
     public function deleteImage()
     {
     	Storage::delete($this->image);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

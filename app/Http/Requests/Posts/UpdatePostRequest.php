@@ -27,6 +27,8 @@ class UpdatePostRequest extends FormRequest
             'title'=>'required|min:3',
             'description'=>'required|min:4',
             'content'=>'required|min:3',
+            'category'=>'required',
+
             
             
         ];

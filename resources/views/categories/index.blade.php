@@ -22,6 +22,11 @@
 					Name
 				</th>
 				<th>
+					
+					Posts Count		
+				
+				</th>
+				<th>
 					Action
 				</th>
 
@@ -35,6 +40,10 @@
 
 			<tr>
 				<td>{{$category->name}}</td>
+
+				<td>
+					{{$category->posts->count()}}
+				</td>
 
 				<td>
 					<a href="{{route('categories.edit',$category->id)}}" class="btn btn-primary btn-sm">EDIT</a>

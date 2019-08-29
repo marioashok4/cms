@@ -60,7 +60,42 @@
 	    	<label for="content">Content</label>
 	    	  <input id="content" value="{{isset($post)?$post->content:old('content')}}" type="hidden" name="content">
   			<trix-editor input="content"></trix-editor>
+
+
+
 	    	
+	    </div>
+
+
+	    <div class="form-group">
+	    	<label for="category">Category</label>
+	    	<select name="category" id="category" class="form-control">Category
+			
+			@foreach($categories as $category)
+
+			<option value="{{$category->id}}"
+				
+				{{-- Only whilst editing --}}
+				@if(isset($post))
+				
+				@if($category->id==$post->category_id)
+				
+				selected
+
+				@endif
+
+
+				@endif
+
+
+				>
+				{{$category->name}}
+			</option>
+
+			@endforeach		
+
+
+	    	</select>
 	    </div>
 
 	     <div class="form-group">
