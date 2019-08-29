@@ -11,18 +11,30 @@
 |
 */
 
+
+
+Auth::routes();
+
+
+Route::middleware(['auth'])->group(function(){
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/categories','CategoriesController');
+
+Route::resource('/tags','TagsController');
+
 
 Route::resource('/posts','PostsController');
 
 Route::get('/trashed-posts','PostsController@trashed')->name('trashed-posts');
 
 Route::put('/restore-posts/{id}','PostsController@restore')->name('restore-posts');
+
+
+});
